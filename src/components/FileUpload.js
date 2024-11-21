@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 import { Button, CircularProgress, Snackbar, Alert } from '@mui/material';
@@ -192,11 +191,6 @@ function FileUpload() {
       });
 
       console.log('Final Customers Data:', customersWithTotals);
-
-      // Clear existing data before adding new data
-      dispatch({ type: 'CLEAR_INVOICES' });
-      dispatch({ type: 'CLEAR_PRODUCTS' });
-      dispatch({ type: 'CLEAR_CUSTOMERS' });
 
       // Add new data
       dispatch(addInvoices(extractedData.invoices));
