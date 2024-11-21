@@ -1,70 +1,161 @@
-# Getting Started with Create React App
+## Application Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application is a **Data Management Dashboard** designed for handling invoices, products, and customer data. It allows users to upload files, edit data, and manage it through a dynamic and user-friendly interface. The app also leverages **Generative AI** to process data from uploaded files (PDF, Excel, and images), extract meaningful information, and populate the dashboard automatically.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+### Core Features:
+1. **File Upload & AI Integration**:
+   - Supports file uploads in PDF, Excel, and image formats.
+   - Uses **Google Generative AI** to extract structured data from these files.
+   - Automatically categorizes extracted data into invoices, products, and customers.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+2. **Dynamic Tabs**:
+   - **Invoices Tab**:
+     - Add, edit, and view invoices.
+     - Validate invoice details dynamically.
+   - **Products Tab**:
+     - Manage products with unit prices, taxes, and inventory details.
+     - Edit fields and update related invoices dynamically.
+   - **Customers Tab**:
+     - Track customer details including phone numbers and total spend.
+     - Validate customer names and phone numbers.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **Summary Metrics**:
+   - Each tab provides real-time metrics:
+     - Total counts, amounts, or inventory values.
+     - Average values where applicable.
 
-### `npm test`
+4. **Error Handling**:
+   - Highlights validation errors during edits.
+   - Displays error/success notifications for uploads and AI processing.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+5. **State Management**:
+   - Centralized state management using **Redux**.
+   - Efficient actions to add, update, and clear data.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Architecture
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Technology Stack:
+- **Frontend**:
+  - React.js with Material-UI components.
+  - Redux for state management.
+  - Google Generative AI for data extraction.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Libraries**:
+  - `pdfjs-dist` for PDF processing.
+  - `XLSX` and `html2canvas` for Excel to image conversion.
+  - `@mui/x-data-grid` for data table management.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### File Structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Reducers**:
+  - `dataReducer.js`: Manages invoices, products, and customers state.
+  - Combines reducers in `index.js` for a unified state management system.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Actions**:
+  - `dataActions.js`: Provides Redux actions to manipulate data (add, update, clear).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Components**:
+  - **Tabs** (`Tabs.js`): Dynamic navigation for invoices, products, and customers.
+  - **Invoices Tab** (`InvoicesTab.js`): Handles invoice data, includes validation and summary.
+  - **Products Tab** (`ProductsTab.js`): Manages product inventory and updates invoices.
+  - **Customers Tab** (`CustomersTab.js`): Displays and updates customer details.
+  - **File Upload** (`FileUpload.js`): Handles file uploads, AI processing, and data extraction.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### AI Integration
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Google Generative AI** plays a pivotal role:
+- Extracts structured data from uploaded files using a prompt-based system.
+- Converts PDF, Excel, or image files into JSON with specific fields for invoices, products, and customers.
 
-### Code Splitting
+Example of AI data extraction format:
+```json
+{
+  "invoices": [{ "serialNumber": "123", "customerName": "John Doe", "productName": "Widget", "qty": 2, "tax": 18, "totalAmount": 236, "date": "2024-01-01" }],
+  "products": [{ "id": "P123", "name": "Widget", "quantity": 50, "unitPrice": 100, "tax": 18, "priceWithTax": 118, "discount": 5 }],
+  "customers": [{ "id": "C123", "customerName": "John Doe", "phoneNumber": "1234567890", "totalAmount": 236 }]
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Installation and Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Prerequisites
+1. Node.js and npm installed.
+2. Google Generative AI API key.
 
-### Making a Progressive Web App
+### Steps:
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Add a `.env` file with your API key:
+   ```
+   REACT_APP_AI_API_KEY=your_google_ai_api_key
+   ```
+4. Start the application:
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## Key Screens
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### File Upload
+- Allows users to upload supported files.
+- Provides real-time feedback on AI processing status.
 
-### Deployment
+### Invoices Tab
+- Displays all invoices in a data grid.
+- Enables inline editing and real-time validation.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Products Tab
+- Showcases products with dynamic fields like unit price and inventory value.
+- Syncs updates with related invoices.
 
-### `npm run build` fails to minify
+### Customers Tab
+- Tracks customer details and total amounts from invoices.
+- Supports editing with validation.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## Example Workflow
+
+1. **Upload a File**:
+   - Select a PDF or Excel file containing invoice data.
+   - Wait for AI to process and extract data.
+   - Data populates into invoices, products, and customers tabs.
+
+2. **View & Edit Data**:
+   - Navigate through tabs to review data.
+   - Correct or add missing information using inline editing.
+
+3. **Manage State**:
+   - Use actions to clear or update data across the tabs.
+
+---
+
+## Limitations and Future Enhancements
+
+### Current Limitations:
+- AI model relies on accurate prompts and clean file input.
+- Processing large files might increase response time.
+
+### Planned Enhancements:
+- Support for multiple file uploads.
+- Improved AI prompts for greater data extraction accuracy.
+- Advanced filtering and search capabilities in data grids.
+
+---
