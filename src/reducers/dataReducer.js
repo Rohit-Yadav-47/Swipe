@@ -7,11 +7,11 @@ const initialState = {
   export default function dataReducer(state = initialState, action) {
     switch (action.type) {
       case 'ADD_INVOICES':
-        return { ...state, invoices: [...action.payload] }; // Replace instead of append
+        return { ...state, invoices: [...state.invoices, ...action.payload] }; // Append new invoices
       case 'ADD_PRODUCTS':
-        return { ...state, products: [...action.payload] }; // Replace instead of append
+        return { ...state, products: [...state.products, ...action.payload] }; // Append new products
       case 'ADD_CUSTOMERS':
-        return { ...state, customers: [...action.payload] }; // Replace instead of append
+        return { ...state, customers: [...state.customers, ...action.payload] }; // Append new customers
       case 'UPDATE_PRODUCT':
         const updatedProducts = state.products.map((product) =>
           product.id === action.payload.id ? action.payload : product
